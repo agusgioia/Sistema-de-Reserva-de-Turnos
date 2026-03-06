@@ -3,26 +3,19 @@ FROM eclipse-temurin:21-jdk AS build
 
 WORKDIR /app
 
-# Copiar dependencias y código fuente
 COPY . .
 
-# 🔧 Dar permisos de ejecución al wrapper de Maven
 RUN chmod +x mvnw
+RUN ./mvnw clean package -DskipTests
 
-# Empaquetar la app, salteando los tests (si es necesario)
-RUN mvn clean package -DskipTests
-
-# Etapa final: imagen para producción
+# Etapa final
 FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-# Copiar el JAR desde el build
 COPY --from=build /app/target/*.jar app.jar
 
-# Exponer el puerto
 EXPOSE 8080
 
-# Comando para ejecutar
+CMD ["java","-jar","app.jar"]
 
-CMD ["java", "-jar", "app.jar"]
