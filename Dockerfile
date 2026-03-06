@@ -10,7 +10,7 @@ COPY . .
 RUN chmod +x mvnw
 
 # Empaquetar la app, salteando los tests (si es necesario)
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # Etapa final: imagen para producción
 FROM eclipse-temurin:21-jdk
@@ -24,4 +24,5 @@ COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 
 # Comando para ejecutar
+
 CMD ["java", "-jar", "app.jar"]
