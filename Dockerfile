@@ -1,18 +1,15 @@
-# Etapa de construcción
-FROM eclipse-temurin:21-jdk AS build
+# Build
+FROM maven:3.9-eclipse-temurin-21 AS build
 
 WORKDIR /app
-
 COPY . .
 
-RUN chmod +x mvnw
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
-# Etapa final
+# Runtime
 FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
-
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
