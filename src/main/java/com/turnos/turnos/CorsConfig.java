@@ -17,7 +17,7 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
 
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173","https://sistema-de-reserva-de-turnos-pwjuc017x-agusgioias-projects.vercel.app/")
+                        .allowedOrigins("http://localhost:5173","https://sistema-de-reserva-de-turnos-onn4otzxe-agusgioias-projects.vercel.app")
                         .allowedMethods("*")
                         .allowedHeaders("*");
 
@@ -26,4 +26,5 @@ public class CorsConfig {
     }
 
 }
+
 
